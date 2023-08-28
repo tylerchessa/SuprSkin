@@ -1,0 +1,49 @@
+.category-banner-holder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%; /* Make sure the banner takes up full width */
+    margin-bottom: 20px; 
+    position: relative; /* Set the container as a positioning context */
+    display: inline-block; /* To fit the content size */
+  }
+
+  .category-center-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    align-items: center;
+    justify-content: center;
+    transform: translate(-50%, -50%); /* Center the overlay */
+    background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent background */
+    padding: 20px; /* Add some padding for the clickable area */
+    border-radius: 8px;
+    color: white;
+    text-align: center;
+  }
+
+  .category-banner-img {
+    width: 250px;
+    height: auto;
+  }
+
+  .products-holder {
+    padding:20px;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(75px, 1fr));
+    gap: 10px; /* Adjust the gap between squares */
+    max-width: 1200px; /* Set a maximum width for the container */
+    // min-width: 100%;
+    margin: 0 auto; /* Center the container */
+    justify-items: center; /* Center items horizontally within the grid cell */
+    align-items: flex-start;
+    // align-content: center; /* Center the rows vertically */
+    @media (max-width: 600px) {
+      font-size: 0.8rem;
+    }
+  
+    /* Further adjust font size for even smaller screens */
+    @media (max-width: 400px) {
+      font-size: 0.7rem;
+    }
+  }
