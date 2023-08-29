@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import './RegimenQuestionnaire.scss'; // You can style this component using CSS
-import Banner from '../assets/Supr-Skin-facebook-cover-double.jpg';
-import Logo from '../assets/SuprSkin.png';
+import Banner from '../../assets/Supr-Skin-facebook-cover-double.jpg';
+import Logo from '../../assets/SuprSkin.png';
 import axios from 'axios'
 
 

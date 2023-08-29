@@ -1,0 +1,17 @@
+.login {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.sign-in-holder {
+    display: flex;
+    justify-content: flex-start;
+    align-items: end;
+    
+}
+
+.sign-up-holder {
+    display: flex;
+    justify-content: right;
+}

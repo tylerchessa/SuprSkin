@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import './HomePage.scss'; // You can style this component using CSS
 import Banner from '../assets/Supr-Skin-facebook-cover-double.jpg';
 import Logo from '../assets/SuprSkin.png';
-import CategoryIcon from './CategoryIcon';
+import CategoryIcon from './shop/CategoryIcon';
 import axios from 'axios';
 
 function HomePage() {

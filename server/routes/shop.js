@@ -19,14 +19,32 @@ router.get("/all", (req, res) => {
     });
 
     router.get("/product/:product", (req, res) => {
+      let productObj = {};
       productsdb.getProductId(req.params.product)
       .then(productId => {
+        productObj.id = productId
         console.log(productId)
         return shopdb.getProduct(productId)
       })
-        .then(products => {
-          console.log(products)
-          res.send(products);
+        .then(product => {
+          productObj.product = product
+          console.log(product)
+          return shopdb.getProductPhotos(productObj.id)
+        })
+        .then(productPhotos => {
+          productObj.photos = productPhotos
+          console.log(productPhotos)
+          return shopdb.getProductIngredients(productObj.id)
+        })
+        .then(productIngredients => {
+          productObj.productIngredients = productIngredients
+          console.log(productIngredients)
+          return shopdb.getProductBenefits(productObj.id)
+        })
+        .then(productBenefits => {
+          productObj.productBenefits = productBenefits
+          console.log(productBenefits)
+          res.send(productObj);
         })
         .catch(error => {
           // Handle error retrieving user info from the database
@@ -34,6 +52,7 @@ router.get("/all", (req, res) => {
           res.status(500).send('Internal Server Error');
         })
         });
+
 
 // Get /shop/:category  - get category products
 router.get("/:category", (req, res) => {
