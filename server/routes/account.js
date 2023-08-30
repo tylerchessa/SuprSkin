@@ -9,9 +9,9 @@ const orderdb = require("../db/queries/orderdb");
 router.get("/", (req, res) => {
     let accountData = {};
     userdb.getAccountData(req.body)
-    .then(accountData => {
-        accountData.accountData = accountData
+    .then(accountinfo => {
         console.log(accountData)
+        accountData.accountData = accountinfo
         return orderdb.getOrderCount(accountData.id)
       })
       .then(orderCount => {

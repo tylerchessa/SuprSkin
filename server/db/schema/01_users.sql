@@ -7,5 +7,6 @@ CREATE TABLE users (
   username VARCHAR(255) NOT NULL,
   password VARCHAR(255) NOT NULL,
   date_of_birth DATE NOT NULL,
-  customer BOOLEAN DEFAULT TRUE 
+  customer BOOLEAN DEFAULT TRUE ,
+  created_at TIMESTAMP DEFAULT NOW()
 );

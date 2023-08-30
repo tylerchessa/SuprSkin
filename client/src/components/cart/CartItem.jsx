@@ -6,25 +6,19 @@ function CartItem({ item }) {
     const { cartState, cartDispatch } = useCart();
     const totalPrice = item.price * item.quantity;
   
-    function calculateTotalPrice(items) {
-        return items.reduce((total, item) => total + item.price * item.quantity, 0);
-      }
+    // function calculateTotalPrice(items) {
+    //     return items.reduce((total, item) => total + item.price * item.quantity, 0);
+    //   }
 
       
     return (
         item && (
-            <div>
-            {cartState.items.map(item => (
-              <div key={item.id}>
-                <p>{item.name}</p>
-                <p>Quantity: {item.quantity}</p>
-                <button onClick={() => cartDispatch({ type: 'INCREASE_QUANTITY', payload: item })}>+</button>
-                <button onClick={() => cartDispatch({ type: 'DECREASE_QUANTITY', payload: item })}>-</button>
-                <button onClick={() => cartDispatch({ type: 'REMOVE_ITEM', payload: item })}>Remove</button>
-              </div>
-            ))}
-            <p>Total Price: ${calculateTotalPrice(cartState.items)}</p>
-          </div>
+          <tr>
+          <td>{item.product.name}</td>
+          <td>{item.product.description}</td>
+          <td>{item.quantity}</td>
+          <td>${item.product.price.toFixed(2)}</td>
+        </tr>
 
         // <div className="cart-item">
         //   <div className="item-content">

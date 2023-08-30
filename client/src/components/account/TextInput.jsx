@@ -1,7 +1,7 @@
 import React from 'react';
 import './TextInput.scss';
 
-function TextInput({ name, onChange, onKeyDown, value, id, type = 'text', placeholder = '', className = '' , mandatory = false }) {
+function TextInput({ name, onChange, onKeyDown, value, id, type = 'text', placeholder = '', mandatory = false }) {
     const whiteSpace = (text) => {
         return text !== text.trimStart(); 
     }
@@ -11,7 +11,7 @@ function TextInput({ name, onChange, onKeyDown, value, id, type = 'text', placeh
       {mandatory && <span className="mandatory-sign">*</span>}
       <input
         id={id}
-        className={className ? whiteSpace(className) ? 'text-input-input' + className : "text-input" + "-" + className : 'text-input-input'}
+        className={'text-input-input'}
         type={type}
         placeholder={placeholder}
         onChange={onChange}

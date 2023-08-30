@@ -29,7 +29,6 @@ const getAllCategoryProducts = (categoryId) => {
     return db
       .query(queryObj)
       .then(productInfo => {
-        console.log('benefits', productInfo)
         return productInfo.rows;
       })
       .catch(function (xhr, status, error) {

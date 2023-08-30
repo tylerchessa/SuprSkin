@@ -7,7 +7,7 @@ import TextInput from './TextInput';
 
 let loggedIn = false;
 
-function SignUp({loginBtn, setLoginBtn}) {
+function SignUp({setLoginBtn}) {
 
   const { currentUser, login, logout, setUserUpdate } = useContext(loginContext);
 
@@ -30,9 +30,9 @@ function SignUp({loginBtn, setLoginBtn}) {
     setBirthdate('');
   };
 
-  useEffect(() => {
-  !loginBtn && clearInput()
-}, [loginBtn])
+//   useEffect(() => {
+//   !loginBtn && clearInput()
+// }, [loginBtn])
 
   const handleFirstNameChange = (e) => {
     setFirstName(e.target.value);
@@ -67,6 +67,11 @@ function SignUp({loginBtn, setLoginBtn}) {
   const handleSignUpSubmit = (event) => {
     event.preventDefault();
 
+    if (!firstName || !lastName || !email || !username || !password || !birthdate) {
+          setErrorMessage('Please fill in all fields.');
+          return;
+        }
+
     const userInfo = {
       firstName: firstName,
       lastName: lastName,
@@ -77,12 +82,13 @@ function SignUp({loginBtn, setLoginBtn}) {
     };
 
     axios
-      .post(`/signup`, userInfo)
+      .post(`http://localhost:8001/signup`, userInfo)
       .then((res) => {
         // Handle success
         setSuccessMessage('Sign up successful!');
         setErrorMessage('');
         setLoginBtn(true)
+        clearInput()
       })
       .catch((error) => {
         // Handle error
@@ -95,10 +101,12 @@ function SignUp({loginBtn, setLoginBtn}) {
   return (
     <div className='sign-up'>
     <h3>Sign Up</h3>
-          <div className='sign-up-holder'>      
+          <div className='sign-up-holder'>   
+          {successMessage && <p className='success-message'>{successMessage}</p>}
+      {errorMessage && <p className='error-message'>{errorMessage}</p>}   
       <TextInput
         name="First name"
-        id="create-poll-option2"
+        id="first-name-sign-up"
         type="text"
         placeholder="first name"
         onChange={handleFirstNameChange}
@@ -108,7 +116,7 @@ function SignUp({loginBtn, setLoginBtn}) {
       /> 
       <TextInput
         name="Last name"
-        id="create-poll-option2"
+        id="last-name-sign-up"
         type="text"
         placeholder="last name"
         onChange={handleLastNameChange}
@@ -118,7 +126,7 @@ function SignUp({loginBtn, setLoginBtn}) {
       /> 
       <TextInput
         name="E-mail"
-        id="create-poll-option2"
+        id="email-sign-up"
         type="email"
         placeholder="email"
         onChange={handleEmailChange}
@@ -127,7 +135,7 @@ function SignUp({loginBtn, setLoginBtn}) {
       />
       <TextInput
         name="Date of birth"
-        id="create-poll-option2"
+        id="dob-sign-up"
         type="date"
         placeholder="birthdate"
         onChange={handleBirthdateChange}
@@ -137,7 +145,7 @@ function SignUp({loginBtn, setLoginBtn}) {
       />
       <TextInput
         name="Username"
-        id="create-poll-option2"
+        id="username-sign-up"
         type="text"
         placeholder="username"
         onChange={handleUsernameChange}
@@ -147,7 +155,7 @@ function SignUp({loginBtn, setLoginBtn}) {
       />  
       <TextInput
         name="Password"
-        id="create-poll-option2"
+        id="password-sign-up"
         type="password"
         placeholder="password"
         onChange={handlePasswordChange}

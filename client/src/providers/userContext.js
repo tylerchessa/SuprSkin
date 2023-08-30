@@ -11,7 +11,7 @@ export default function LoginProvider(props) {
 //   const [userUpdate, setUserUpdate] = useState(false);
 
   useEffect(() => {
-    setCurrentUser(Cookies.get('email'));
+    setCurrentUser(Cookies.get('username'));
   }, [])
 
   useEffect(() => {
@@ -28,13 +28,13 @@ export default function LoginProvider(props) {
     //   setUserUpdate(false);
   }, [currentUser])
 
-  const login = function (email) {
-    Cookies.set('email', email, { expires: 1 })
-    setCurrentUser(email);
+  const login = function (username) {
+    Cookies.set('username', username, { expires: 1 })
+    setCurrentUser(username);
   };
 
   const logout = function () {
-    Cookies.remove('email')
+    Cookies.remove('username')
     setCurrentUser(null);
     setCurrentUserInfo(null);
   };

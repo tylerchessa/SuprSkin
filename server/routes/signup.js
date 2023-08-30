@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const userdb = require("../db/queries/userdb");
+const cartdb = require("../db/queries/cartdb");
 const bcrypt = require('bcrypt');
 const saltRounds = 10; // Number of salt rounds for password hashing
 
@@ -18,6 +19,9 @@ router.post("/", (req, res) => {
       const hashedPassword = hash;
       req.body.password = hashedPassword;
       userdb.addNewUser(req.body)
+    .then(userInfo => {
+      return cartdb.createNewCart()
+    })
     .then(userInfo => {
       res.send(userInfo);
     })

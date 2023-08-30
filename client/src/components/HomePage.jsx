@@ -29,7 +29,7 @@ useEffect(() => {
       </div>
       <div className="categories-holder">
       {categories.map(category => {
-    return <CategoryIcon key={category.id} title={category.name} />;
+    return <CategoryIcon key={category.id} title={category.name} id={category.id}/>;
   })}
         {/* <CategoryIcon title='Skin Care' />
         <CategoryIcon title='Skin Scrub' />

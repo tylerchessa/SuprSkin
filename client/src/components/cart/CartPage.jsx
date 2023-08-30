@@ -14,18 +14,22 @@ function CartPage() {
   const [allProductInfo, setAllProductInfo] = useState();
   const [cartInfo, setCartInfo] = useState();
 
-
-  console.log(cartState)
+console.log(currentUserInfo)
     useEffect(() => {
+      let obj = {}; 
+      if (currentUserInfo) obj.userId = currentUserInfo.id
+      currentUser && (
       axios
-        .get(`http://localhost:8001/cart`)
+        .get(`http://localhost:8001/cart`, {obj})
         .then((res) => {
+          console.log(obj)
           console.log(res.data)
           setCartInfo(res.data)
         })
         .catch((error) => {
           console.error('Error fetching cart info:', error);
-        });
+        })
+      )
     }, [])
 
   return (
@@ -38,7 +42,7 @@ function CartPage() {
       </div>
       <div className='cart-contents'>
       <h2>Your Cart</h2>
-      {cartState && cartState.items.map(item => (
+      {cartInfo && cartInfo.items.map(item => (
           <CartItem key={item.id} item={item} />
         ))}
       </div>

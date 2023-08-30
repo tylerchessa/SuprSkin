@@ -25,25 +25,25 @@ function Login(props) {
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
-  const handleLogin = () => {
-    setLoginBtn(true);
-  };
-
-  const handleSignUp = () => {
-    setLoginBtn(false);
-  };
+ 
 
   return (
     <div className='login'>
-      {successMessage && <h2 className='success-message'>{successMessage}</h2>}
-      {errorMessage && <div className='error-message'>{errorMessage}</div>}
-      <div className='sign-in-holder'>
+      <div className='login-holder'>
           <SignIn loginBtn={loginBtn}/> 
-          <div className='why-sign-up-holder'> </div>
+          <div className='why-sign-up-holder'>
+            <div className='title-holder'>
+            <h4>Become a member of Supr Skin today</h4>
+            </div>
+            <ul>
+              <li>monthly newsletters</li>
+              <li>skin tips</li>
+              <li>be apart of a natural skin health community</li>
+            </ul>
           </div>
-          <div className='sign-up-holder'>
-          <div className='why-sign-up-holder'> </div>
-          <SignUp setLoginBtn={setLoginBtn} loginBtn={loginBtn}/> 
+          </div>
+          <div className='login-holder-sign-up'>
+            <SignUp setLoginBtn={setLoginBtn}/> 
           </div>
     </div> 
   );

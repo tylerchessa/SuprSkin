@@ -1,9 +1,10 @@
 const db = require('../db');
 
-const getCartInfo = (userId) => {
+const getCartInfo = (obj) => {
+    console.log(obj)
     const queryObj = {
         text: `SELECT * FROM cart WHERE user_id = $1`,
-        values: [userId]
+        values: [obj.userId]
       };
     return db
       .query(queryObj)
@@ -37,8 +38,28 @@ const getCartInfo = (userId) => {
       });
   }; 
 
+  const createNewCart = (userId) => {
+    const queryObj = {
+      text: `INSERT INTO cart (user_id, created_at, updated_at)
+             VALUES ($1, NOW(), NOW());
+      `,
+      values: [userId]
+      };
+    return db
+      .query(queryObj)
+      .then(cart => {
+        return cart.rows;
+      })
+      .catch(function (xhr, status, error) {
+        console.log("Error creating new cart: " + error);
+        console.log("xhr: " + xhr);
+        console.log("stat: " + status);
+      });
+  }; 
+
 
 module.exports = {
     addCartItem,
     getCartInfo,
+    createNewCart
 };

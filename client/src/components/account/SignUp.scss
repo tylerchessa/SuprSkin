@@ -4,14 +4,7 @@
     flex-direction: column;
     align-items: center;
     padding: 20px;
-  }
-  
-  .text-input-input {
-    border: none;
-    border-bottom: 1px solid black;
-    padding: 4px 0;
-    width: 100%;
-    font-size: 16px;
+    position: relative;
   }
   
   .date-input {
@@ -47,14 +40,33 @@
   }
   
   .success-message {
+     position: absolute; /* Position absolutely within the parent */
+    top: -5px; /* Adjust as needed */
+    left: 0; /* Adjust as needed */
+    width: 100%; /* Take full width */
+    text-align: center; /* Center the message */
+    // background-color: rgba(255, 0, 0, 0.5); /* Add a background color */
+    color: white; /* Text color */
+    z-index: 1; /* Set a higher z-index to appear over other content */
+    padding: 8px; /* Add padding for better visibility */
     color: green;
   }
   
   .error-message {
+     position: absolute; /* Position absolutely within the parent */
+    top: -5px; /* Adjust as needed */
+    left: 0; /* Adjust as needed */
+    width: 100%; /* Take full width */
+    text-align: center; /* Center the message */
+    // background-color: rgba(255, 0, 0, 0.5); /* Add a background color */
+    color: white; /* Text color */
+    z-index: 1; /* Set a higher z-index to appear over other content */
+    padding: 8px; /* Add padding for better visibility */
     color: red;
   }
   
   .sign-up {
+    width: 350px;
     background-color: white;
     padding: 20px;
     border-radius: 8px;

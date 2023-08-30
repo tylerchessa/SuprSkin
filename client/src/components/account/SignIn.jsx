@@ -19,9 +19,9 @@ function SignIn({loginBtn}) {
       setLoginPassword('');
     };
 
-    useEffect(() => {
-    loginBtn && clearInput()
-    }, [loginBtn])
+    // useEffect(() => {
+    // loginBtn && clearInput()
+    // }, [loginBtn])
   
     const handleLoginEmailChange = (e) => {
       setLoginEmail(e.target.value);
@@ -43,21 +43,21 @@ function SignIn({loginBtn}) {
       // Data validation - All fields must be populated.
       if (!loginEmail || !loginPassword) {
         if (!loginEmail && !loginPassword) {
-          alert('Please enter both a email and a password.');
+          setErrorMessage('Please enter both a email and a password.');
         } else if (!loginEmail) {
-          alert('Please enter a email.');
+            setErrorMessage('Please enter a email.');
         } else if (!loginPassword) {
-          alert('Please enter a password.');
+            setErrorMessage('Please enter a password.');
         }
         return;
       }
   
       axios
-        .post(`/login`, { email: loginEmail, password: loginPassword })
+        .post(`http://localhost:8001/login`, { email: loginEmail, password: loginPassword })
         .then((res) => {
           // Handle success
           login(res.data.username)
-          setUserUpdate(true)
+        //   setUserUpdate(true)
           setSuccessMessage('Login successful!');
           setErrorMessage('');
         })
@@ -72,10 +72,12 @@ function SignIn({loginBtn}) {
     return (
                 <div className='sign-in'>
                     <h3>Sign In</h3>
-                    <div className='login-holder'>
+                    <div className='sign-in-holder'>
+                    {successMessage && <p className='success-message'>{successMessage}</p>}
+      {errorMessage && <p className='error-message'>{errorMessage}</p>}
                         <TextInput
                             name="Email"
-                            id="create-poll-option2"
+                            id="email-login"
                             type="email"
                             placeholder="email"
                             onChange={handleLoginEmailChange}
@@ -85,7 +87,7 @@ function SignIn({loginBtn}) {
 
                         <TextInput
                             name="Password"
-                            id="create-poll-option2"
+                            id="password-login"
                             type="password"
                             placeholder="password"
                             onChange={handleLoginPasswordChange}
