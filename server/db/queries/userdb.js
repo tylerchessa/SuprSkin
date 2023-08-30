@@ -58,7 +58,8 @@ const getUserInfo = (userEmail) => {
   const addNewUser = (userInfo) => {
     const queryObj = {
         text: `INSERT INTO users (first_name, last_name, email, username, password, date_of_birth, created_at)
-        VALUES ($1, $2, $3, $4, $5, $6, NOW());`,
+        VALUES ($1, $2, $3, $4, $5, $6, NOW())
+        RETURNING id;`, 
         values: [userInfo.firstName, userInfo.lastName, userInfo.email, userInfo.username, userInfo.password, userInfo.birthdate]
       };
     return db

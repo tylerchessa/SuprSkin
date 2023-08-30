@@ -13,24 +13,31 @@ function CartPage() {
   const { cartState } = useCart();
   const [allProductInfo, setAllProductInfo] = useState();
   const [cartInfo, setCartInfo] = useState();
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  const calculateTotalPrice = (items) => {
+    const total = items.reduce((sum, item) => sum + item.product_price * item.quantity, 0);
+    setTotalPrice(total);
+  };
 
 console.log(currentUserInfo)
     useEffect(() => {
-      let obj = {}; 
-      if (currentUserInfo) obj.userId = currentUserInfo.id
-      currentUser && (
+      currentUserInfo && (
       axios
-        .get(`http://localhost:8001/cart`, {obj})
+        .get(`http://localhost:8001/cart/${currentUserInfo.id}`)
         .then((res) => {
-          console.log(obj)
           console.log(res.data)
           setCartInfo(res.data)
+          calculateTotalPrice(res.data);
         })
         .catch((error) => {
           console.error('Error fetching cart info:', error);
         })
       )
     }, [])
+    
+
+    console.log('cartInfo', cartInfo)
 
   return (
     <div className="main-page">
@@ -42,9 +49,22 @@ console.log(currentUserInfo)
       </div>
       <div className='cart-contents'>
       <h2>Your Cart</h2>
-      {cartInfo && cartInfo.items.map(item => (
+      <table className="cart-table">
+  <thead>
+    <tr>
+      <th>Product Name</th>
+      <th>Product Description</th>
+      <th>Quantity</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+  <tbody>
+      {cartInfo && cartInfo.map(item => (
           <CartItem key={item.id} item={item} />
         ))}
+         </tbody>
+</table>
+<div className="total-price">Total Price: ${totalPrice.toFixed(2)}</div>
       </div>
     </div>
   );

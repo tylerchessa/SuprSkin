@@ -14,11 +14,13 @@ function CartItem({ item }) {
     return (
         item && (
           <tr>
-          <td>{item.product.name}</td>
-          <td>{item.product.description}</td>
+          <td>{item.product_name}</td>
+          <td>{item.product_description}</td>
           <td>{item.quantity}</td>
-          <td>${item.product.price.toFixed(2)}</td>
+          <td>${item.product_price}</td>
         </tr>
+
+// .toFixed(2)
 
         // <div className="cart-item">
         //   <div className="item-content">

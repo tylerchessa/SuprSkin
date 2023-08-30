@@ -1,18 +1,44 @@
 const db = require('../db');
 
-const getCartInfo = (obj) => {
-    console.log(obj)
+const getCartInfo = (userId) => {
+    console.log('getcartinfo', userId)
     const queryObj = {
         text: `SELECT * FROM cart WHERE user_id = $1`,
-        values: [obj.userId]
+        values: [userId]
       };
     return db
       .query(queryObj)
       .then(cartInfo => {
-        return cartInfo.rows;
+        console.log('cartInfo', cartInfo.rows[0])
+        return cartInfo.rows[0];
       })
       .catch(function (xhr, status, error) {
         console.log("Error getting cart info: " + error);
+        console.log("xhr: " + xhr);
+        console.log("stat: " + status);
+      });
+  }; 
+
+  const getCartProducts = (cartId) => {
+    console.log('cartId', cartId)
+    const queryObj = {
+        text: `
+          SELECT cart_product.*, products.name AS product_name, products.description AS product_description, products.price AS product_price
+          FROM cart_product
+          JOIN products ON cart_product.product_id = products.id
+          WHERE cart_product.cart_id = $1
+        `,
+        values: [cartId]
+      };
+      
+    return db
+      .query(queryObj)
+      .then(cartProducts => {
+        console.log('cartProducts', cartProducts.rows)
+        return cartProducts.rows;
+      })
+      .catch(function (xhr, status, error) {
+        console.log("Error getting cart products: " + error);
         console.log("xhr: " + xhr);
         console.log("stat: " + status);
       });
@@ -39,11 +65,12 @@ const getCartInfo = (obj) => {
   }; 
 
   const createNewCart = (userId) => {
+    console.log(userId)
     const queryObj = {
       text: `INSERT INTO cart (user_id, created_at, updated_at)
              VALUES ($1, NOW(), NOW());
       `,
-      values: [userId]
+      values: [userId[0].id]
       };
     return db
       .query(queryObj)
@@ -61,5 +88,6 @@ const getCartInfo = (obj) => {
 module.exports = {
     addCartItem,
     getCartInfo,
+    getCartProducts,
     createNewCart
 };

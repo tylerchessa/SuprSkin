@@ -5,15 +5,20 @@ import Logo from '../../assets/SuprSkin.png';
 import axios from 'axios'
 import { useParams } from 'react-router-dom'; 
 import { useCart } from '../../providers/cartContext';
+import { useContext } from 'react';
+import { loginContext } from '../../providers/userContext';
 
 
 function ProductPage() {
+  const { currentUserInfo, currentUser, login, logout } = useContext(loginContext);
   const { cartDispatch } = useCart();
   const { product } = useParams();
   const [productInfo, setProductInfo] = useState();
   const [productImages, setProductImages] = useState();
   const [productBenefits, setProductBenefits] = useState();
   const [productIngredients, setProductIngredients] = useState();
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     if (product) {
@@ -33,11 +38,22 @@ function ProductPage() {
   }, [product])
 
   const handleAddToCart = (product) => {
-    // Dispatch the ADD_ITEM action to add the selected product to the cart
-    cartDispatch({
-      type: 'ADD_ITEM',
-      payload: product,
+    axios
+    .post(`http://localhost:8001/cart/add`, {productId: product.id, userId: currentUserInfo.id})
+    .then((res) => {
+      setSuccessMessage('added to cart!');
+      setErrorMessage('error adding to cart, please try again');
+    })
+    .catch((error) => {
+      // Handle error
+      console.error('Error posting cart add:', error);
+      setErrorMessage('An error occurred. Please try again.');
+      setSuccessMessage('');
     });
+    // cartDispatch({
+    //   type: 'ADD_ITEM',
+    //   payload: product,
+    // });
   };
 
   return (

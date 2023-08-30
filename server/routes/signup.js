@@ -20,7 +20,8 @@ router.post("/", (req, res) => {
       req.body.password = hashedPassword;
       userdb.addNewUser(req.body)
     .then(userInfo => {
-      return cartdb.createNewCart()
+      console.log('userInfo', userInfo)
+      return cartdb.createNewCart(userInfo)
     })
     .then(userInfo => {
       res.send(userInfo);
