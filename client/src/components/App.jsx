@@ -10,6 +10,7 @@ import ProductPage from './shop/ProductPage';
 import Adaptogens from './Adaptogens';
 import CartPage from './cart/CartPage';
 import AccountPage from './account/AccountPage';
+import CheckoutPage from './cart/CheckoutPage';
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Route path='/adaptogens' element={<Adaptogens />} />
         <Route path='/my-account' element={<AccountPage  />} />
         <Route path='/regimen' element={<Regimen />} />
+        <Route path='/checkout' element={<CheckoutPage />} />
         <Route path='/shop' element={<Shop />} />
         <Route path='/shop/cart' element={<CartPage />} />
         <Route path='/shop/product/:product' element={<ProductPage />} />

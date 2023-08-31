@@ -30,3 +30,26 @@
     font-weight: bold;
   }
   
+  .checkout-holder {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-right: 20px;
+    margin-top: 5px;
+  }
+  
+  .checkout-button {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  .checkout-button:hover {
+    background-color: rgba(0, 0, 0, 8);
+  }

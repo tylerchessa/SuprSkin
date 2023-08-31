@@ -30,7 +30,29 @@ const getCartInfo = (userId) => {
         `,
         values: [cartId]
       };
-      
+    return db
+      .query(queryObj)
+      .then(cartProducts => {
+        console.log('cartProducts', cartProducts.rows)
+        return cartProducts.rows;
+      })
+      .catch(function (xhr, status, error) {
+        console.log("Error getting cart products: " + error);
+        console.log("xhr: " + xhr);
+        console.log("stat: " + status);
+      });
+  }; 
+
+  const getCartProductIds = (cartId) => {
+    console.log('cartId', cartId)
+    const queryObj = {
+        text: `
+          SELECT *
+          FROM cart_product
+          WHERE cart_id = $1
+        `,
+        values: [cartId]
+      };
     return db
       .query(queryObj)
       .then(cartProducts => {
@@ -54,7 +76,6 @@ const getCartInfo = (userId) => {
     return db
       .query(queryObj)
       .then(productInfo => {
-        console.log('benefits', productInfo)
         return productInfo.rows;
       })
       .catch(function (xhr, status, error) {
@@ -63,6 +84,27 @@ const getCartInfo = (userId) => {
         console.log("stat: " + status);
       });
   }; 
+
+  const addCartQuantity = (productId, cartId) => {
+    const queryObj = {
+        text: `UPDATE cart_product
+               SET quantity = quantity + 1
+               WHERE cart_id = $1 AND product_id = $2;`,
+        values: [cartId, productId]
+      };
+      return db
+      .query(queryObj)
+        .then(() => {
+          console.log(`Increased quantity of product ${productId} in cart ${cartId}`);
+        })
+        .catch(function (xhr, status, error) {
+            console.log("Error adding cart item: " + error);
+            console.log("xhr: " + xhr);
+            console.log("stat: " + status);
+          });
+    };
+
+
 
   const createNewCart = (userId) => {
     console.log(userId)
@@ -87,7 +129,9 @@ const getCartInfo = (userId) => {
 
 module.exports = {
     addCartItem,
+    addCartQuantity,
     getCartInfo,
     getCartProducts,
+    getCartProductIds,
     createNewCart
 };

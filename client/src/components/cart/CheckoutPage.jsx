@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './CartPage.scss'; // You can style this component using CSS
+import './CheckoutPage.scss'; // You can style this component using CSS
 import Banner from '../../assets/Supr-Skin-facebook-cover-double.jpg';
 import Logo from '../../assets/SuprSkin.png';
 import axios from 'axios'
@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { loginContext } from '../../providers/userContext';
 
-function CartPage() {
+function CheckoutPage() {
   const navigate = useNavigate();
   const { currentUserInfo, currentUser, login, logout } = useContext(loginContext);
   const { cartState } = useCart();
@@ -49,27 +49,11 @@ function CartPage() {
       <div className='category-banner-holder'>
         <img src={Banner} alt="SuprSkin banner" className='banner' />
         <div className="center-overlay">
-          <p>cart</p>
+          <p>checkout</p>
         </div>
       </div>
-      <div className='cart-contents'>
+      <div className='checkout-contents'>
         <h2>Your Cart</h2>
-        <table className="cart-table">
-          <thead>
-            <tr>
-              <th>Product Name</th>
-              <th>Product Description</th>
-              <th>Quantity</th>
-              <th>Price</th>
-              <th>Total</th>
-            </tr>
-          </thead>
-          <tbody>
-            {cartInfo && cartInfo.map(item => (
-              <CartItem key={item.id} item={item} />
-            ))}
-          </tbody>
-        </table>
         <div className="total-price">Total Price: ${totalPrice.toFixed(2)}</div>
         <div className='checkout-holder'>
         <div className='checkout-button' onClick={handleCheckoutClick}>Checkout</div>
@@ -79,4 +63,4 @@ function CartPage() {
   );
 }
 
-export default CartPage;
+export default CheckoutPage;

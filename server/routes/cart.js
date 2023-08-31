@@ -25,12 +25,24 @@ router.get("/:userId", (req, res) => {
 
 // POST /cart/add - add item to cart
 router.post("/add", (req, res) => {
+  const productId = req.body.productId
+  let cartObj = {};
   cartdb.getCartInfo(req.body.userId)
   .then(cartInfo => {
-    console.log('cartinfo', cartInfo)
-    console.log('product', req.body)
-    console.log('addcartitem', req.body.productId, cartInfo.id)
-  return cartdb.addCartItem(req.body.productId, cartInfo.id)
+    cartObj = cartInfo
+    // console.log('cartinfo', cartInfo)
+    // console.log('product', req.body)
+    // console.log('addcartitem', productId, cartInfo.id)
+  return cartdb.getCartProductIds(cartInfo.id)
+  })
+  .then(cartProductInfo => {
+    console.log('this', cartProductInfo)
+    const existingCartItem = cartProductInfo.find(item => item.product_id === productId);
+    if (existingCartItem) {
+      return cartdb.addCartQuantity(productId, cartObj.id);
+    } else {
+  return cartdb.addCartItem(productId, cartObj.id)
+    }
   })
     .then(added => {
       res.send(added);
